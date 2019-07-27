@@ -21,7 +21,7 @@ class App extends Component {
                     climbing.
                 </Text>
                 <br />
-                <Text>Buy a T-Shirt to get access to the beta for a year when it is ready.</Text>
+                <Text>Buy a T-Shirt to reserve access to the beta for a year when it is ready.</Text>
             </StyledView>
         )
     }
