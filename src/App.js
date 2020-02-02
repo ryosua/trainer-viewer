@@ -14,14 +14,11 @@ class App extends Component {
     render() {
         return (
             <StyledView>
-                <Text>Need to find a route? Get Stoked!</Text>
+                <Text>Planning a trip? Get Stoked!</Text>
                 <br />
-                <Text>
-                    Stoked will be a new climbing guide that will help you find new routes faster, and spend more time
-                    climbing.
-                </Text>
+                <Text>Stoked makes it easy to plan trips with with other people who love the outdoors.</Text>
                 <br />
-                <Text>Buy a T-Shirt to reserve access to the beta for a year when it is ready.</Text>
+                <Text>Buy a T-Shirt to reserve access to the beta for a year after launch.</Text>
             </StyledView>
         )
     }
