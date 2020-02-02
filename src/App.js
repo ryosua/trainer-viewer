@@ -16,7 +16,7 @@ class App extends Component {
             <StyledView>
                 <Text>Planning a trip? Get Stoked!</Text>
                 <br />
-                <Text>Stoked makes it easy to plan trips with with other people who love the outdoors.</Text>
+                <Text>Stoked makes it easy to plan trips with other people who love the outdoors.</Text>
                 <br />
                 <Text>Buy a T-Shirt to reserve access to the beta for a year after launch.</Text>
             </StyledView>
