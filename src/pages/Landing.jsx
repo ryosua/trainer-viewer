@@ -13,10 +13,12 @@ const useStyles = makeStyles({
 const Landing = () => {
     const classes = useStyles()
     return (
-        <Box display="flex" flex={1} flexDirection="column" justifyContent="center" p={3}>
-            <Typography variant="h3">Stoked</Typography>
-            <Typography>Meet people while exploring the outdoors</Typography>
-            {/*<Button classes={classes}>Signup</Button>*/}
+        <Box display="flex" flex={1} justifyContent="center">
+            <Box display="flex" flexDirection="column" alignItems="center">
+                <Typography variant="h3">Stoked</Typography>
+                <Typography>Meet people while exploring the outdoors</Typography>
+                <Button classes={classes}>Signup</Button>
+            </Box>
         </Box>
     )
 }
