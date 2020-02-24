@@ -15,7 +15,7 @@ const Landing = () => {
     return (
         <Box display="flex" flex={1} flexDirection="column" justifyContent="center" p={3}>
             <Typography variant="h3">Stoked</Typography>
-            <Typography>Meet people while exploring the outdoors.</Typography>
+            <Typography>Meet people while exploring the outdoors</Typography>
             {/*<Button classes={classes}>Signup</Button>*/}
         </Box>
     )
