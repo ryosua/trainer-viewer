@@ -1,8 +1,10 @@
 import React from 'react'
+import T from 'prop-types'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
+import { withRouter } from 'react-router'
 
 const useStyles = makeStyles({
     root: {
@@ -10,17 +12,23 @@ const useStyles = makeStyles({
     }
 })
 
-const Landing = () => {
+const Landing = ({ history: { push } }) => {
     const classes = useStyles()
     return (
         <Box display="flex" flex={1} justifyContent="center">
             <Box display="flex" flexDirection="column" alignItems="center">
                 <Typography variant="h3">Stoked</Typography>
                 <Typography>Meet people while exploring the outdoors</Typography>
-                <Button classes={classes}>Signup</Button>
+                <Button classes={classes} onClick={() => push('/signup')}>
+                    Signup
+                </Button>
             </Box>
         </Box>
     )
 }
 
-export default Landing
+Landing.propTypes = {
+    history: T.shape({ push: T.func.isRequired })
+}
+
+export default withRouter(Landing)
