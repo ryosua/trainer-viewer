@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router'
+import { useAuth0 } from '../Auth0'
 
 const useStyles = makeStyles({
     root: {
@@ -14,14 +15,17 @@ const useStyles = makeStyles({
 
 const Landing = ({ history: { push } }) => {
     const classes = useStyles()
+    const { isAuthenticated, loginWithRedirect } = useAuth0()
     return (
         <Box display="flex" flex={1} justifyContent="center">
             <Box display="flex" flexDirection="column" alignItems="center">
                 <Typography variant="h3">Stoked</Typography>
                 <Typography>Meet people while exploring the outdoors</Typography>
-                <Button classes={classes} onClick={() => push('/signup')}>
-                    Signup
-                </Button>
+                {!isAuthenticated && (
+                    <Button classes={classes} onClick={() => loginWithRedirect({})}>
+                        Signup
+                    </Button>
+                )}
             </Box>
         </Box>
     )
