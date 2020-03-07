@@ -12,8 +12,6 @@ export const Auth0Provider = ({ children, onRedirectCallback = DEFAULT_REDIRECT_
     const [loading, setLoading] = useState(true)
     const [popupOpen, setPopupOpen] = useState(false)
 
-    console.log('loading auth0', loading)
-
     useEffect(() => {
         const initAuth0 = async () => {
             const auth0FromHook = await createAuth0Client(initOptions)
@@ -74,7 +72,10 @@ export const Auth0Provider = ({ children, onRedirectCallback = DEFAULT_REDIRECT_
                 loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
                 getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
                 getTokenWithPopup: (...p) => auth0Client.getTokenWithPopup(...p),
-                logout: (...p) => auth0Client.logout(...p)
+                logout: (...p) =>
+                    auth0Client.logout({
+                        returnTo: `http://${process.env.REACT_APP_URL}`
+                    })
             }}>
             {children}
         </Auth0Context.Provider>
