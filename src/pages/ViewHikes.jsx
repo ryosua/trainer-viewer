@@ -11,6 +11,7 @@ const VIEW_HIKES_QUERY = gql`
     {
         hikes {
             id
+            miles
             url
         }
     }
@@ -25,13 +26,14 @@ const ViewHikes = () => {
     return (
         <>
             <Typography variant="h2">View Hikes</Typography>
-            {hikes.map(hike => (
-                <Card key={hike.id} variant="outlined">
+            {hikes.map(({ id, miles, url }) => (
+                <Card key={id} variant="outlined">
                     <CardContent>
-                        <Typography>{`Link: ${hike.url}`}</Typography>
+                        <Typography>{`Link: ${url}`}</Typography>
+                        <Typography>{`Miles: ${miles}`}</Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small" onClick={() => window.open(hike.url, '_blank')}>
+                        <Button size="small" onClick={() => window.open(url, '_blank')}>
                             Show Details
                         </Button>
                     </CardActions>
