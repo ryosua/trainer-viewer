@@ -1,0 +1,44 @@
+import React from 'react'
+import Typography from '@material-ui/core/Typography'
+import { useQuery } from '@apollo/react-hooks'
+import { gql } from 'apollo-boost'
+import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+
+const VIEW_HIKES_QUERY = gql`
+    {
+        hikes {
+            id
+            url
+        }
+    }
+`
+
+const ViewHikes = () => {
+    const { loading, error, data } = useQuery(VIEW_HIKES_QUERY)
+    if (loading || error) {
+        return null
+    }
+    const hikes = data.hikes
+    return (
+        <>
+            <Typography variant="h2">View Hikes</Typography>
+            {hikes.map(hike => (
+                <Card key={hike.id} variant="outlined">
+                    <CardContent>
+                        <Typography>{`Link: ${hike.url}`}</Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button size="small" onClick={() => window.open(hike.url, '_blank')}>
+                            Show Details
+                        </Button>
+                    </CardActions>
+                </Card>
+            ))}
+        </>
+    )
+}
+
+export default ViewHikes
