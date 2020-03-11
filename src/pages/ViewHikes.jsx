@@ -2,6 +2,7 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
+import dayjs from 'dayjs'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -52,7 +53,7 @@ const ViewHikes = () => {
                         <CardContent>
                             <Typography variant="h3">{name}</Typography>
                             <Typography>{`Miles: ${miles}`}</Typography>
-                            <Typography>{`Date and Time: ${time}`}</Typography>
+                            <Typography>{`Date and Time: ${dayjs(time).format('MM/DD/YYYY HH:mm')}`}</Typography>
                             <Typography>{`Starting Elevation: ${startingElevation} feet`}</Typography>
                             <Typography>{`Elevation Gain: ${elevationGain} feet`}</Typography>
                             <Typography>{`Expected Round Trip Time: ${expectedRoundTripTime / 60} hours`}</Typography>
