@@ -3,7 +3,6 @@ import Box from '@material-ui/core/Box'
 import { HashRouter as Router, Route } from 'react-router-dom'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
-import { useAuth0 } from './Auth0'
 
 import AuthenticatedRoute from './components/AuthenticatedRoute'
 import NavBar from './components/NavBar'
@@ -11,6 +10,7 @@ import CreateWorkout from './pages/CreateWorkout'
 import Landing from './pages/Landing'
 import ViewWorkouts from './pages/ViewWorkouts'
 import { createWorkout, home, workouts } from './constants/routes'
+import useAuth from './hooks/useAuth'
 
 import './App.css'
 
@@ -27,19 +27,18 @@ const client = new ApolloClient({
 })
 
 const App = () => {
-    const auth0 = useAuth0()
-    const isAuthenticated = auth0.isAuthenticated
+    const { isAuthenticated, getIdTokenClaims } = useAuth()
 
     useEffect(() => {
         const getToken = async () => {
-            const tokenClaims = await auth0.getIdTokenClaims()
+            const tokenClaims = await getIdTokenClaims()
             const token = tokenClaims.__raw
             localStorage.setItem('token', token)
         }
         if (isAuthenticated) {
             getToken()
         }
-    }, [auth0, isAuthenticated])
+    }, [getIdTokenClaims, isAuthenticated])
 
     return (
         <div className="App">

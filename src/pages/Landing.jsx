@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router'
 
-import { useAuth0 } from '../Auth0'
+import useAuth from '../hooks/useAuth'
 import { appName } from '../constants/app'
 const useStyles = makeStyles({
     root: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 
 const Landing = ({ history: { push } }) => {
     const classes = useStyles()
-    const { isAuthenticated, loginWithRedirect } = useAuth0()
+    const { isAuthenticated, loginWithRedirect } = useAuth()
     return (
         <Box display="flex" flex={1} justifyContent="center">
             <Box display="flex" flexDirection="column" alignItems="center">

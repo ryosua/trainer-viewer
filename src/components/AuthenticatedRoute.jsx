@@ -1,12 +1,11 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 
-import { useAuth0 } from '../Auth0'
+import useAuth from '../hooks/useAuth'
 import { home } from '../constants/routes'
 
 const AuthenticatedRoute = props => {
-    const auth0 = useAuth0()
-    const isAuthenticated = auth0.isAuthenticated
+    const { isAuthenticated } = useAuth()
     return isAuthenticated ? <Route {...props} /> : <Redirect to={home} />
 }
 

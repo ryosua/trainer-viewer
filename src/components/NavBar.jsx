@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router-dom'
 
 import Menu from './Menu'
-import { useAuth0 } from '../Auth0'
+import useAuth from '../hooks/useAuth'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const NavBar = () => {
     const classes = useStyles()
-    const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
+    const { isAuthenticated, loginWithRedirect, logout } = useAuth()
     const history = useHistory()
 
     return (
