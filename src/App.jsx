@@ -5,6 +5,7 @@ import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { useAuth0 } from './Auth0'
 
+import AuthenticatedRoute from './components/AuthenticatedRoute'
 import NavBar from './components/NavBar'
 import CreateWorkout from './pages/CreateWorkout'
 import Landing from './pages/Landing'
@@ -48,7 +49,7 @@ const App = () => {
                         <NavBar />
                     </header>
                     <Box display="flex" flexDirection="column" mt={2}>
-                        <Route exact path={createWorkout} component={CreateWorkout} />
+                        <AuthenticatedRoute exact path={createWorkout} component={CreateWorkout} />
                         <Route exact path={home} component={Landing} />
                         <Route exact path={workouts} component={ViewWorkouts} />
                     </Box>
