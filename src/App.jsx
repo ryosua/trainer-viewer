@@ -6,8 +6,9 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import { useAuth0 } from './Auth0'
 
 import NavBar from './components/NavBar'
-import ViewHikes from './pages/ViewHikes'
+import ViewWorkouts from './pages/ViewWorkouts'
 import Landing from './pages/Landing'
+import { home, workouts } from './constants/routes'
 
 import './App.css'
 
@@ -46,8 +47,8 @@ const App = () => {
                         <NavBar />
                     </header>
                     <Box display="flex" flexDirection="column" mt={2}>
-                        <Route exact path="/" component={Landing} />
-                        <Route exact path="/hikes" component={ViewHikes} />
+                        <Route exact path={home} component={Landing} />
+                        <Route exact path={workouts} component={ViewWorkouts} />
                     </Box>
                 </Router>
             </ApolloProvider>

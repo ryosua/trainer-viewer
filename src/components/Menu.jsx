@@ -6,6 +6,8 @@ import MenuItem from '@material-ui/core/MenuItem'
 import MenuIcon from '@material-ui/icons/Menu'
 import { useHistory } from 'react-router-dom'
 
+import { workouts } from '../constants/routes'
+
 const useStyles = makeStyles(theme => ({
     menuButton: {
         marginRight: theme.spacing(2)
@@ -37,7 +39,7 @@ const NavMenu = () => {
                 <MenuIcon />
             </IconButton>
             <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-                <MenuItem onClick={() => navigateTo('/hikes')}>Hikes</MenuItem>
+                <MenuItem onClick={() => navigateTo(workouts)}>Workouts</MenuItem>
             </Menu>
         </div>
     )
