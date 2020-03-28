@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Box from '@material-ui/core/Box'
 import { HashRouter as Router, Route } from 'react-router-dom'
 import ApolloClient from 'apollo-boost'
@@ -10,7 +10,7 @@ import CreateWorkout from './pages/CreateWorkout'
 import Landing from './pages/Landing'
 import ViewWorkouts from './pages/ViewWorkouts'
 import { createWorkout, home, workouts } from './constants/routes'
-import useAuth from './hooks/useAuth'
+import useSetToken from './hooks/useSetToken'
 
 import './App.css'
 
@@ -27,19 +27,7 @@ const client = new ApolloClient({
 })
 
 const App = () => {
-    const { isAuthenticated, getIdTokenClaims } = useAuth()
-
-    useEffect(() => {
-        const getToken = async () => {
-            const tokenClaims = await getIdTokenClaims()
-            const token = tokenClaims.__raw
-            localStorage.setItem('token', token)
-        }
-        if (isAuthenticated) {
-            getToken()
-        }
-    }, [getIdTokenClaims, isAuthenticated])
-
+    useSetToken()
     return (
         <div className="App">
             <ApolloProvider client={client}>
