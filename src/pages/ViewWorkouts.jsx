@@ -32,7 +32,7 @@ const ViewWorkouts = () => {
                 <Card key={id} variant="outlined">
                     <CardContent>
                         <Typography variant="h3">{title}</Typography>
-                        <Typography>{`Start time: ${dayjs(startTime).format('MM/DD/YYYY HH:mm a')}`}</Typography>
+                        <Typography>{`Start time: ${dayjs(startTime).format('MM/DD/YYYY hh:mm a')}`}</Typography>
                     </CardContent>
                     <CardActions>
                         <Button size="small" onClick={() => window.open(link, '_blank')}>
