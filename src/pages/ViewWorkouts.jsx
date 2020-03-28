@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
+import dayjs from 'dayjs'
 
 const ViewWorkoutsQuery = gql`
     query ViewWorkouts {
@@ -31,7 +32,7 @@ const ViewWorkouts = () => {
                 <Card key={id} variant="outlined">
                     <CardContent>
                         <Typography variant="h3">{title}</Typography>
-                        <Typography>{`Start time: ${startTime}`}</Typography>
+                        <Typography>{`Start time: ${dayjs(startTime).format('MM/DD/YYYY HH:mm a')}`}</Typography>
                     </CardContent>
                     <CardActions>
                         <Button size="small" onClick={() => window.open(link, '_blank')}>
