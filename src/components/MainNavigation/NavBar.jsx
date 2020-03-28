@@ -7,8 +7,8 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router-dom'
 
-import Menu from './Menu'
-import useAuth from '../hooks/useAuth'
+import Menu from '../Menu'
+import useAuth from '../../hooks/useAuth'
 
 const useStyles = makeStyles(theme => ({
     root: {
