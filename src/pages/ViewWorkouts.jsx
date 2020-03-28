@@ -26,7 +26,7 @@ const ViewWorkouts = () => {
     const workouts = data.workouts
     return (
         <>
-            <Typography variant="h2">View Hikes</Typography>
+            <Typography variant="h2">Workouts</Typography>
             {workouts.map(({ id, title, startTime, link }) => (
                 <Card key={id} variant="outlined">
                     <CardContent>
