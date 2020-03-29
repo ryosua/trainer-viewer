@@ -37,7 +37,7 @@ const ViewWorkouts = () => {
                         <Typography>{`Start time: ${formatDate(startTime)}`}</Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small" onClick={() => openLink(link)}>
+                        <Button onClick={() => openLink(link)} variant="outlined">
                             Open Link
                         </Button>
                     </CardActions>
