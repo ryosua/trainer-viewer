@@ -4,10 +4,10 @@ import Box from '@material-ui/core/Box'
 
 import AuthenticatedRoute from '../AuthenticatedRoute'
 import NavBar from './NavBar'
-import CreateWorkout from '../../pages/CreateWorkout'
+import AddWorkout from '../../pages/AddWorkout'
 import Landing from '../../pages/Landing'
 import ViewWorkouts from '../../pages/ViewWorkouts'
-import { createWorkout, home, workouts } from '../../constants/routes'
+import { addWorkout, home, workouts } from '../../constants/routes'
 
 const MainNavigation = () => (
     <>
@@ -15,7 +15,7 @@ const MainNavigation = () => (
             <NavBar />
         </header>
         <Box display="flex" flexDirection="column" mt={2}>
-            <AuthenticatedRoute exact path={createWorkout} component={CreateWorkout} />
+            <AuthenticatedRoute exact path={addWorkout} component={AddWorkout} />
             <Route exact path={home} component={Landing} />
             <Route exact path={workouts} component={ViewWorkouts} />
         </Box>

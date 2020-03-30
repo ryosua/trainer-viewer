@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import MenuIcon from '@material-ui/icons/Menu'
 import { useHistory } from 'react-router-dom'
 
-import { createWorkout, workouts } from '../constants/routes'
+import { addWorkout, workouts } from '../constants/routes'
 import useAuth from '../hooks/useAuth'
 
 const useStyles = makeStyles(theme => ({
@@ -42,7 +42,7 @@ const NavMenu = () => {
             </IconButton>
             <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
                 <MenuItem onClick={() => navigateTo(workouts)}>Workouts</MenuItem>
-                {isAuthenticated && <MenuItem onClick={() => navigateTo(createWorkout)}>Create a Workout</MenuItem>}
+                {isAuthenticated && <MenuItem onClick={() => navigateTo(addWorkout)}>Create a Workout</MenuItem>}
             </Menu>
         </div>
     )
