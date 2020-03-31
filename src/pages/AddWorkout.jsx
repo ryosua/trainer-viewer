@@ -44,6 +44,7 @@ const AddWorkout = () => {
                         label={'Required equipment'}
                         value={requiredEquipment}
                         onChange={handleTextFieldChange(handleRequiredEquipmentChange)}
+                        placeholder="Water bottle, towel"
                     />
                     <Box my={2}>
                         <DateTimePicker value={selectedDate} handleDateChange={handleDateChange} />
