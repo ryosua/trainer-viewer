@@ -11,9 +11,10 @@ import AddWorkoutMutation from '../graphql/AddWorkoutMutation'
 import ViewWorkoutsQuery from '../graphql/ViewWorkoutsQuery'
 
 const AddWorkout = () => {
+    const [link, handleLinkChange] = useState('')
+    const [requiredEquipment, handleRequiredEquipmentChange] = useState('')
     const [selectedDate, handleDateChange] = useState(new Date())
     const [title, handleTitleChange] = useState('')
-    const [link, handleLinkChange] = useState('')
     const [addWorkout] = useMutation(AddWorkoutMutation, {
         update(cache, { data: { addWorkout } }) {
             const { workouts } = cache.readQuery({ query: ViewWorkoutsQuery })
@@ -24,9 +25,10 @@ const AddWorkout = () => {
         }
     })
     const handleAddWorkout = () => {
-        addWorkout({ variables: { title, startTime: selectedDate.toISOString(), link } })
+        addWorkout({ variables: { title, requiredEquipment, startTime: selectedDate.toISOString(), link } })
         handleTitleChange('')
         handleLinkChange('')
+        handleRequiredEquipmentChange('')
     }
     const handleTextFieldChange = handler => e => handler(e.target.value)
 
@@ -38,6 +40,11 @@ const AddWorkout = () => {
                     <Typography variant="h2">Create Workout</Typography>
                     <TextField label={'Title'} value={title} onChange={handleTextFieldChange(handleTitleChange)} />
                     <TextField label={'Link'} value={link} onChange={handleTextFieldChange(handleLinkChange)} />
+                    <TextField
+                        label={'Required equipment'}
+                        value={requiredEquipment}
+                        onChange={handleTextFieldChange(handleRequiredEquipmentChange)}
+                    />
                     <Box my={2}>
                         <DateTimePicker value={selectedDate} handleDateChange={handleDateChange} />
                     </Box>
