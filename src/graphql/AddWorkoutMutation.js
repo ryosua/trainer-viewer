@@ -5,6 +5,7 @@ const AddWorkoutMutation = gql`
         addWorkout(title: $title, startTime: $startTime, link: $link) {
             id
             title
+            requiredEquipment
             startTime
             link
         }

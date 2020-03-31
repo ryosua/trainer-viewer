@@ -5,6 +5,7 @@ const ViewWorkoutsQuery = gql`
         workouts {
             id
             title
+            requiredEquipment
             startTime
             link
         }

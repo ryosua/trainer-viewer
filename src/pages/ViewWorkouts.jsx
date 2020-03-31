@@ -20,11 +20,12 @@ const ViewWorkouts = () => {
     return (
         <>
             <Typography variant="h2">Workouts</Typography>
-            {workouts.map(({ id, title, startTime, link }) => (
+            {workouts.map(({ id, title, requiredEquipment, startTime, link }) => (
                 <Card key={id} variant="outlined">
                     <CardContent>
                         <Typography variant="h3">{title}</Typography>
                         <Typography>{`Start time: ${formatDate(startTime)}`}</Typography>
+                        <Typography>{`Required equipment: ${requiredEquipment || 'No equipment needed'}`}</Typography>
                     </CardContent>
                     <CardActions>
                         <Button onClick={() => openLink(link)} variant="outlined">
