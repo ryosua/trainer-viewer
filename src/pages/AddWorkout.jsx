@@ -84,6 +84,13 @@ const AddWorkout = () => {
     const handleTextFieldChange = handler => e => handler(e.target.value)
     const handleWorkoutCategoriesChange = e => {
         const workoutCategoryValues = e.target.value
+
+        const noneOptionSelected = workoutCategoryValues.includes('')
+        if (noneOptionSelected) {
+            setWorkoutCategories([])
+            return
+        }
+
         if (workoutCategoryValues.length <= 2) {
             setWorkoutCategories(workoutCategoryValues)
         }
