@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
@@ -11,7 +11,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import cloneDeep from 'lodash/cloneDeep'
-import remove from 'lodash/remove'
 
 import DateTimePicker from '../components/DateTimePicker'
 import AddWorkoutMutation from '../graphql/AddWorkoutMutation'
@@ -20,11 +19,8 @@ import useWorkoutCategories from '../hooks/api/useWorkoutCategories'
 
 const useStyles = makeStyles(theme => ({
     formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2)
+        minWidth: 120,
+        marginBottom: theme.spacing(1)
     }
 }))
 
@@ -40,7 +36,11 @@ const WorkoutCategoriesSelct = ({ loading, error, selectedWorkoutCategories, dat
     return (
         <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel id="demo-simple-select-outlined-label">Workout Catagories</InputLabel>
-            <Select multiple value={selectedWorkoutCategories} onChange={handleWorkoutCategoriesChange} label="Age">
+            <Select
+                multiple
+                value={selectedWorkoutCategories}
+                onChange={handleWorkoutCategoriesChange}
+                label="Workout Categories">
                 <MenuItem value="">
                     <em>None</em>
                 </MenuItem>
@@ -63,15 +63,6 @@ const AddWorkout = () => {
 
     const { loading, error, data } = useWorkoutCategories()
 
-    useEffect(() => {
-        if (!loading) {
-            const { workoutCategories } = data
-            console.log(JSON.stringify(workoutCategories))
-            setWorkoutCategories(workoutCategories)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loading])
-
     const [addWorkoutMutation] = useMutation(AddWorkoutMutation, {
         update(cache, { data: { addWorkout } }) {
             // ViewWorkoutsQuery is called on Landing.
@@ -92,15 +83,9 @@ const AddWorkout = () => {
     }
     const handleTextFieldChange = handler => e => handler(e.target.value)
     const handleWorkoutCategoriesChange = e => {
-        const [workoutCategory] = e.target.value
-        if (!selectedWorkoutCategories.includes(workoutCategory)) {
-            if (selectedWorkoutCategories.length < 2) {
-                setWorkoutCategories([...selectedWorkoutCategories, workoutCategory])
-            }
-        } else {
-            const workoutCategoriesCopy = cloneDeep(selectedWorkoutCategories)
-            const newWorkoutCategories = remove(workoutCategoriesCopy, wc => wc === workoutCategory)
-            setWorkoutCategories(newWorkoutCategories)
+        const workoutCategoryValues = e.target.value
+        if (workoutCategoryValues.length <= 2) {
+            setWorkoutCategories(workoutCategoryValues)
         }
     }
 
@@ -121,6 +106,7 @@ const AddWorkout = () => {
                     <Box my={2}>
                         <DateTimePicker value={selectedDate} handleDateChange={handleDateChange} />
                     </Box>
+
                     <WorkoutCategoriesSelct
                         data={data}
                         loading={loading}
@@ -128,6 +114,7 @@ const AddWorkout = () => {
                         selectedWorkoutCategories={selectedWorkoutCategories}
                         handleWorkoutCategoriesChange={handleWorkoutCategoriesChange}
                     />
+
                     <Button variant="outlined" onClick={handleAddWorkout} disabled={!title || !link}>
                         Create Workout
                     </Button>
