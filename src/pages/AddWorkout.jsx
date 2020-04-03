@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
+import cloneDeep from 'lodash/cloneDeep'
 
 import DateTimePicker from '../components/DateTimePicker'
 import AddWorkoutMutation from '../graphql/AddWorkoutMutation'
@@ -15,17 +16,19 @@ const AddWorkout = () => {
     const [requiredEquipment, handleRequiredEquipmentChange] = useState('')
     const [selectedDate, handleDateChange] = useState(new Date())
     const [title, handleTitleChange] = useState('')
-    const [addWorkout] = useMutation(AddWorkoutMutation, {
+    const [addWorkoutMutation] = useMutation(AddWorkoutMutation, {
         update(cache, { data: { addWorkout } }) {
-            const { workouts } = cache.readQuery({ query: ViewWorkoutsQuery })
+            // ViewWorkoutsQuery is called on Landing.
+            const { workouts } = cloneDeep(cache.readQuery({ query: ViewWorkoutsQuery }))
+
             cache.writeQuery({
-                query: AddWorkout,
+                query: ViewWorkoutsQuery,
                 data: { workouts: workouts.concat(addWorkout) }
             })
         }
     })
     const handleAddWorkout = () => {
-        addWorkout({ variables: { title, requiredEquipment, startTime: selectedDate.toISOString(), link } })
+        addWorkoutMutation({ variables: { title, requiredEquipment, startTime: selectedDate.toISOString(), link } })
         handleTitleChange('')
         handleLinkChange('')
         handleRequiredEquipmentChange('')
