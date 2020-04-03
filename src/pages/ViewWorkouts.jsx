@@ -15,7 +15,7 @@ const ViewWorkouts = () => {
     if (loading || error) {
         return null
     }
-    const workouts = data.workouts
+    const { workouts } = data.workouts
     return (
         <>
             <Typography variant="h2">Workouts</Typography>

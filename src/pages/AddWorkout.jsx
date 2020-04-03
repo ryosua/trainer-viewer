@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
@@ -16,6 +16,7 @@ import remove from 'lodash/remove'
 import DateTimePicker from '../components/DateTimePicker'
 import AddWorkoutMutation from '../graphql/AddWorkoutMutation'
 import ViewWorkoutsQuery from '../graphql/ViewWorkoutsQuery'
+import useWorkoutCategories from '../hooks/api/useWorkoutCategories'
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -27,14 +28,49 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const AddWorkout = () => {
+const WorkoutCategoriesSelct = ({ loading, error, selectedWorkoutCategories, data, handleWorkoutCategoriesChange }) => {
     const classes = useStyles()
 
+    if (loading || error) {
+        return null
+    }
+
+    const { workoutCategories } = data
+
+    return (
+        <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel id="demo-simple-select-outlined-label">Workout Catagories</InputLabel>
+            <Select multiple value={selectedWorkoutCategories} onChange={handleWorkoutCategoriesChange} label="Age">
+                <MenuItem value="">
+                    <em>None</em>
+                </MenuItem>
+                {workoutCategories.map(workoutCategory => (
+                    <MenuItem key={workoutCategory.id} value={workoutCategory.id}>
+                        {workoutCategory.title}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
+    )
+}
+
+const AddWorkout = () => {
     const [link, handleLinkChange] = useState('')
     const [requiredEquipment, handleRequiredEquipmentChange] = useState('')
     const [selectedDate, handleDateChange] = useState(new Date())
     const [title, handleTitleChange] = useState('')
-    const [workoutCategories, setWorkoutCategories] = useState([])
+    const [selectedWorkoutCategories, setWorkoutCategories] = useState([])
+
+    const { loading, error, data } = useWorkoutCategories()
+
+    useEffect(() => {
+        if (!loading) {
+            const { workoutCategories } = data
+            console.log(JSON.stringify(workoutCategories))
+            setWorkoutCategories(workoutCategories)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loading])
 
     const [addWorkoutMutation] = useMutation(AddWorkoutMutation, {
         update(cache, { data: { addWorkout } }) {
@@ -57,18 +93,16 @@ const AddWorkout = () => {
     const handleTextFieldChange = handler => e => handler(e.target.value)
     const handleWorkoutCategoriesChange = e => {
         const [workoutCategory] = e.target.value
-        if (!workoutCategories.includes(workoutCategory)) {
-            if (workoutCategories.length < 2) {
-                setWorkoutCategories([...workoutCategories, workoutCategory])
+        if (!selectedWorkoutCategories.includes(workoutCategory)) {
+            if (selectedWorkoutCategories.length < 2) {
+                setWorkoutCategories([...selectedWorkoutCategories, workoutCategory])
             }
         } else {
-            const workoutCategoriesCopy = cloneDeep(workoutCategories)
+            const workoutCategoriesCopy = cloneDeep(selectedWorkoutCategories)
             const newWorkoutCategories = remove(workoutCategoriesCopy, wc => wc === workoutCategory)
             setWorkoutCategories(newWorkoutCategories)
         }
     }
-
-    console.log(workoutCategories)
 
     return (
         <Grid container>
@@ -87,23 +121,13 @@ const AddWorkout = () => {
                     <Box my={2}>
                         <DateTimePicker value={selectedDate} handleDateChange={handleDateChange} />
                     </Box>
-                    <FormControl variant="outlined" className={classes.formControl}>
-                        <InputLabel id="demo-simple-select-outlined-label">Workout Catagories</InputLabel>
-                        <Select multiple value={workoutCategories} onChange={handleWorkoutCategoriesChange} label="Age">
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem key={1} value={1}>
-                                One
-                            </MenuItem>
-                            <MenuItem key={2} value={2}>
-                                Two
-                            </MenuItem>
-                            <MenuItem key={3} value={3}>
-                                Three
-                            </MenuItem>
-                        </Select>
-                    </FormControl>
+                    <WorkoutCategoriesSelct
+                        data={data}
+                        loading={loading}
+                        error={error}
+                        selectedWorkoutCategories={selectedWorkoutCategories}
+                        handleWorkoutCategoriesChange={handleWorkoutCategoriesChange}
+                    />
                     <Button variant="outlined" onClick={handleAddWorkout} disabled={!title || !link}>
                         Create Workout
                     </Button>
