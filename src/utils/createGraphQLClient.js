@@ -10,7 +10,8 @@ const createGraphQLClient = () =>
                     authorization: token ? token : ''
                 }
             })
-        }
+        },
+        connectToDevTools: true
     })
 
 export default createGraphQLClient
