@@ -76,7 +76,15 @@ const AddWorkout = () => {
     })
 
     const handleAddWorkout = () => {
-        addWorkoutMutation({ variables: { title, requiredEquipment, startTime: selectedDate.toISOString(), link } })
+        addWorkoutMutation({
+            variables: {
+                title,
+                requiredEquipment,
+                startTime: selectedDate.toISOString(),
+                link,
+                categories: selectedWorkoutCategories
+            }
+        })
         handleTitleChange('')
         handleLinkChange('')
         handleRequiredEquipmentChange('')
@@ -95,6 +103,8 @@ const AddWorkout = () => {
             setWorkoutCategories(workoutCategoryValues)
         }
     }
+
+    const createWorkOutDisabled = !title || !link || !selectedWorkoutCategories.length
 
     return (
         <Grid container>
@@ -122,7 +132,7 @@ const AddWorkout = () => {
                         handleWorkoutCategoriesChange={handleWorkoutCategoriesChange}
                     />
 
-                    <Button variant="outlined" onClick={handleAddWorkout} disabled={!title || !link}>
+                    <Button variant="outlined" onClick={handleAddWorkout} disabled={createWorkOutDisabled}>
                         Create Workout
                     </Button>
                 </Box>
