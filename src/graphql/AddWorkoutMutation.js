@@ -6,14 +6,14 @@ const AddWorkoutMutation = gql`
         $requiredEquipment: String
         $startTime: String!
         $link: String!
-        $workoutCategories: [Int]!
+        $categories: [Int]!
     ) {
         addWorkout(
             title: $title
             requiredEquipment: $requiredEquipment
             startTime: $startTime
             link: $link
-            workoutCategories: $workoutCategories
+            categories: $categories
         ) {
             id
             title
