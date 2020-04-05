@@ -20,6 +20,10 @@ const AddWorkoutMutation = gql`
             requiredEquipment
             startTime
             link
+            categories {
+                id
+                title
+            }
         }
     }
 `
