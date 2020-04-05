@@ -8,6 +8,10 @@ const ViewWorkoutsQuery = gql`
             requiredEquipment
             startTime
             link
+            categories {
+                id
+                title
+            }
         }
     }
 `

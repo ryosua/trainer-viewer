@@ -15,16 +15,21 @@ const ViewWorkouts = () => {
     if (loading || error) {
         return null
     }
-    const workouts = data.workouts
+    const { workouts } = data
     return (
         <>
             <Typography variant="h2">Workouts</Typography>
-            {workouts.map(({ id, title, requiredEquipment, startTime, link }) => (
+            {workouts.map(({ id, title, requiredEquipment, startTime, link, categories }) => (
                 <Card key={id} variant="outlined">
                     <CardContent>
                         <Typography variant="h3">{title}</Typography>
                         <Typography>{`Start time: ${formatDate(startTime)}`}</Typography>
                         <Typography>{`Required equipment: ${requiredEquipment || 'No equipment needed'}`}</Typography>
+                        <Typography>{`Categories: ${categories.reduce(
+                            (accumulator, category, index) =>
+                                accumulator + category.title + (index === categories.length - 1 ? '' : ', '),
+                            ''
+                        )}`}</Typography>
                     </CardContent>
                     <CardActions>
                         <Button onClick={() => openLink(link)} variant="outlined">
