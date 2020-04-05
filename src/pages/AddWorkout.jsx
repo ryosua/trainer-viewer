@@ -11,11 +11,13 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import cloneDeep from 'lodash/cloneDeep'
+import { useHistory } from 'react-router-dom'
 
 import DateTimePicker from '../components/DateTimePicker'
 import AddWorkoutMutation from '../graphql/AddWorkoutMutation'
 import ViewWorkoutsQuery from '../graphql/ViewWorkoutsQuery'
 import useWorkoutCategories from '../hooks/api/useWorkoutCategories'
+import { workouts as workoutsRoute } from '../constants/routes'
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -35,11 +37,13 @@ const WorkoutCategoriesSelct = ({ loading, error, selectedWorkoutCategories, dat
 
     return (
         <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel id="demo-simple-select-outlined-label">Workout Catagories</InputLabel>
+            <InputLabel id="demo-simple-select-outlined-label">Workout Categories</InputLabel>
             <Select
                 multiple
                 value={selectedWorkoutCategories}
                 onChange={handleWorkoutCategoriesChange}
+                error={!selectedWorkoutCategories.length}
+                required
                 label="Workout Categories">
                 <MenuItem value="">
                     <em>None</em>
@@ -55,6 +59,8 @@ const WorkoutCategoriesSelct = ({ loading, error, selectedWorkoutCategories, dat
 }
 
 const AddWorkout = () => {
+    const history = useHistory()
+
     const [link, handleLinkChange] = useState('')
     const [requiredEquipment, handleRequiredEquipmentChange] = useState('')
     const [selectedDate, handleDateChange] = useState(new Date())
@@ -88,6 +94,7 @@ const AddWorkout = () => {
         handleTitleChange('')
         handleLinkChange('')
         handleRequiredEquipmentChange('')
+        history.push(workoutsRoute)
     }
     const handleTextFieldChange = handler => e => handler(e.target.value)
     const handleWorkoutCategoriesChange = e => {
@@ -112,8 +119,20 @@ const AddWorkout = () => {
             <Grid item sm={12} md={6}>
                 <Box display="flex" flex={1} flexDirection="column" p={5}>
                     <Typography variant="h2">Create Workout</Typography>
-                    <TextField label={'Title'} value={title} onChange={handleTextFieldChange(handleTitleChange)} />
-                    <TextField label={'Link'} value={link} onChange={handleTextFieldChange(handleLinkChange)} />
+                    <TextField
+                        label={'Title'}
+                        value={title}
+                        onChange={handleTextFieldChange(handleTitleChange)}
+                        error={!title}
+                        required
+                    />
+                    <TextField
+                        label={'Link'}
+                        value={link}
+                        onChange={handleTextFieldChange(handleLinkChange)}
+                        error={!link}
+                        required
+                    />
                     <TextField
                         label={'Required equipment'}
                         value={requiredEquipment}
