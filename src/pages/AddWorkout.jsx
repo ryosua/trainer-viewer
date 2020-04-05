@@ -76,7 +76,7 @@ const AddWorkout = () => {
 
             cache.writeQuery({
                 query: ViewWorkoutsQuery,
-                data: { workouts: workouts.concat(addWorkout) }
+                data: { workouts: [addWorkout, ...workouts] }
             })
         }
     })
