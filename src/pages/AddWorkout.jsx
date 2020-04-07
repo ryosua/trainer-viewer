@@ -19,10 +19,13 @@ import ViewWorkoutsQuery from '../graphql/ViewWorkoutsQuery'
 import useWorkoutCategories from '../hooks/api/useWorkoutCategories'
 import { workouts as workoutsRoute } from '../constants/routes'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     formControl: {
         minWidth: 120,
         marginBottom: theme.spacing(1)
+    },
+    button: {
+        width: 200
     }
 }))
 
@@ -48,7 +51,7 @@ const WorkoutCategoriesSelct = ({ loading, error, selectedWorkoutCategories, dat
                 <MenuItem value="">
                     <em>None</em>
                 </MenuItem>
-                {workoutCategories.map(workoutCategory => (
+                {workoutCategories.map((workoutCategory) => (
                     <MenuItem key={workoutCategory.id} value={workoutCategory.id}>
                         {workoutCategory.title}
                     </MenuItem>
@@ -59,6 +62,7 @@ const WorkoutCategoriesSelct = ({ loading, error, selectedWorkoutCategories, dat
 }
 
 const AddWorkout = () => {
+    const classes = useStyles()
     const history = useHistory()
 
     const [link, handleLinkChange] = useState('')
@@ -96,8 +100,8 @@ const AddWorkout = () => {
         handleRequiredEquipmentChange('')
         history.push(workoutsRoute)
     }
-    const handleTextFieldChange = handler => e => handler(e.target.value)
-    const handleWorkoutCategoriesChange = e => {
+    const handleTextFieldChange = (handler) => (e) => handler(e.target.value)
+    const handleWorkoutCategoriesChange = (e) => {
         const workoutCategoryValues = e.target.value
 
         const noneOptionSelected = workoutCategoryValues.includes('')
@@ -151,7 +155,11 @@ const AddWorkout = () => {
                         handleWorkoutCategoriesChange={handleWorkoutCategoriesChange}
                     />
 
-                    <Button variant="outlined" onClick={handleAddWorkout} disabled={createWorkOutDisabled}>
+                    <Button
+                        classes={{ root: classes.button }}
+                        variant="outlined"
+                        onClick={handleAddWorkout}
+                        disabled={createWorkOutDisabled}>
                         Create Workout
                     </Button>
                 </Box>
