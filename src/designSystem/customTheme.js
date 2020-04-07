@@ -1,9 +1,9 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 
+// I had customized the width, but that broke the date time picker.
+// Leaving this in case we want to add other styles.
 const MuiButton = {
-    root: {
-        width: 200
-    }
+    root: {}
 }
 
 const overrides = { MuiButton }
