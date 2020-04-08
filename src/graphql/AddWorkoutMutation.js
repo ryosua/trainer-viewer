@@ -7,6 +7,7 @@ const AddWorkoutMutation = gql`
         $startTime: String!
         $link: String!
         $categories: [Int]!
+        $duration: Int!
     ) {
         addWorkout(
             title: $title
@@ -14,6 +15,7 @@ const AddWorkoutMutation = gql`
             startTime: $startTime
             link: $link
             categories: $categories
+            duration: $duration
         ) {
             id
             title
@@ -24,6 +26,7 @@ const AddWorkoutMutation = gql`
                 id
                 title
             }
+            duration
         }
     }
 `

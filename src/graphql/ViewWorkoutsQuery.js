@@ -12,6 +12,7 @@ const ViewWorkoutsQuery = gql`
                 id
                 title
             }
+            duration
         }
     }
 `
