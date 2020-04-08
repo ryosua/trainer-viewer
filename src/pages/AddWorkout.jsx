@@ -29,7 +29,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const WorkoutCategoriesSelct = ({ loading, error, selectedWorkoutCategories, data, handleWorkoutCategoriesChange }) => {
+const WorkoutCategoriesSelect = ({
+    loading,
+    error,
+    selectedWorkoutCategories,
+    data,
+    handleWorkoutCategoriesChange
+}) => {
     const classes = useStyles()
 
     if (loading || error) {
@@ -146,15 +152,13 @@ const AddWorkout = () => {
                     <Box my={2}>
                         <DateTimePicker value={selectedDate} handleDateChange={handleDateChange} />
                     </Box>
-
-                    <WorkoutCategoriesSelct
+                    <WorkoutCategoriesSelect
                         data={data}
                         loading={loading}
                         error={error}
                         selectedWorkoutCategories={selectedWorkoutCategories}
                         handleWorkoutCategoriesChange={handleWorkoutCategoriesChange}
                     />
-
                     <Button
                         classes={{ root: classes.button }}
                         variant="outlined"
