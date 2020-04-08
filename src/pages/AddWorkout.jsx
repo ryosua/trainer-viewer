@@ -166,15 +166,6 @@ const AddWorkout = () => {
                         <DateTimePicker value={selectedDate} handleDateChange={handleDateChange} />
                     </Box>
                     <Box my={1}>
-                        <WorkoutCategoriesSelect
-                            data={data}
-                            loading={loading}
-                            error={error}
-                            selectedWorkoutCategories={selectedWorkoutCategories}
-                            handleWorkoutCategoriesChange={handleWorkoutCategoriesChange}
-                        />
-                    </Box>
-                    <Box my={1}>
                         <Select
                             handleChange={handleTextFieldChange(setDuration)}
                             label="Duration"
@@ -182,6 +173,15 @@ const AddWorkout = () => {
                             value={duration || ''}
                             error={!duration}
                             required
+                        />
+                    </Box>
+                    <Box my={1}>
+                        <WorkoutCategoriesSelect
+                            data={data}
+                            loading={loading}
+                            error={error}
+                            selectedWorkoutCategories={selectedWorkoutCategories}
+                            handleWorkoutCategoriesChange={handleWorkoutCategoriesChange}
                         />
                     </Box>
                     <Button
