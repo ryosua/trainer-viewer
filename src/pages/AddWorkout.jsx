@@ -9,10 +9,11 @@ import Typography from '@material-ui/core/Typography'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
+import MUISelect from '@material-ui/core/Select'
 import cloneDeep from 'lodash/cloneDeep'
 import { useHistory } from 'react-router-dom'
 
+import Select from '../designSystem/Select'
 import DateTimePicker from '../components/DateTimePicker'
 import AddWorkoutMutation from '../graphql/AddWorkoutMutation'
 import ViewWorkoutsQuery from '../graphql/ViewWorkoutsQuery'
@@ -21,8 +22,7 @@ import { workouts as workoutsRoute } from '../constants/routes'
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
-        minWidth: 120,
-        marginBottom: theme.spacing(1)
+        width: 200
     },
     button: {
         width: 200
@@ -47,7 +47,7 @@ const WorkoutCategoriesSelect = ({
     return (
         <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel id="demo-simple-select-outlined-label">Workout Categories</InputLabel>
-            <Select
+            <MUISelect
                 multiple
                 value={selectedWorkoutCategories}
                 onChange={handleWorkoutCategoriesChange}
@@ -62,10 +62,21 @@ const WorkoutCategoriesSelect = ({
                         {workoutCategory.title}
                     </MenuItem>
                 ))}
-            </Select>
+            </MUISelect>
         </FormControl>
     )
 }
+
+const durationOptions = [
+    { id: 20, title: '20' },
+    { id: 30, title: '30' },
+    { id: 40, title: '40' },
+    { id: 50, title: '50' },
+    { id: 60, title: '60' },
+    { id: 70, title: '70' },
+    { id: 80, title: '80' },
+    { id: 90, title: '90' }
+]
 
 const AddWorkout = () => {
     const classes = useStyles()
@@ -76,6 +87,7 @@ const AddWorkout = () => {
     const [selectedDate, handleDateChange] = useState(new Date())
     const [title, handleTitleChange] = useState('')
     const [selectedWorkoutCategories, setWorkoutCategories] = useState([])
+    const [duration, setDuration] = useState()
 
     const { loading, error, data } = useWorkoutCategories()
 
@@ -98,7 +110,8 @@ const AddWorkout = () => {
                 requiredEquipment,
                 startTime: selectedDate.toISOString(),
                 link,
-                categories: selectedWorkoutCategories
+                categories: selectedWorkoutCategories,
+                duration
             }
         })
         handleTitleChange('')
@@ -149,20 +162,32 @@ const AddWorkout = () => {
                         onChange={handleTextFieldChange(handleRequiredEquipmentChange)}
                         placeholder="Water bottle, towel"
                     />
-                    <Box my={2}>
+                    <Box my={1}>
                         <DateTimePicker value={selectedDate} handleDateChange={handleDateChange} />
                     </Box>
-                    <WorkoutCategoriesSelect
-                        data={data}
-                        loading={loading}
-                        error={error}
-                        selectedWorkoutCategories={selectedWorkoutCategories}
-                        handleWorkoutCategoriesChange={handleWorkoutCategoriesChange}
-                    />
+                    <Box my={1}>
+                        <WorkoutCategoriesSelect
+                            data={data}
+                            loading={loading}
+                            error={error}
+                            selectedWorkoutCategories={selectedWorkoutCategories}
+                            handleWorkoutCategoriesChange={handleWorkoutCategoriesChange}
+                        />
+                    </Box>
+                    <Box my={1}>
+                        <Select
+                            handleChange={handleTextFieldChange(setDuration)}
+                            label="Duration"
+                            options={durationOptions}
+                            value={duration || ''}
+                            error={!duration}
+                            required
+                        />
+                    </Box>
                     <Button
                         classes={{ root: classes.button }}
                         variant="outlined"
-                        onClick={handleAddWorkout}
+                        onClick={handleTextFieldChange(handleAddWorkout)}
                         disabled={createWorkOutDisabled}>
                         Create Workout
                     </Button>

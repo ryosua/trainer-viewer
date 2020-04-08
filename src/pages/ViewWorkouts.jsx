@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Typography from '@material-ui/core/Typography'
-
+import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -39,7 +39,14 @@ const ViewWorkouts = () => {
     return (
         <>
             <Typography variant="h2">Workouts</Typography>
-            <Select handleChange={handleChange} options={workoutCategories} value={selectedWorkoutCategory || ''} />
+            <Box m={1}>
+                <Select
+                    handleChange={handleChange}
+                    label="Workout Category"
+                    options={workoutCategories}
+                    value={selectedWorkoutCategory || ''}
+                />
+            </Box>
             {filteredWorkouts.map(({ id, title, requiredEquipment, startTime, link, categories, duration }) => (
                 <Card key={id} variant="outlined">
                     <CardContent>

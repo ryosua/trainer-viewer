@@ -8,22 +8,22 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: theme.spacing(1),
         width: 200
     }
 }))
 
-const Select = ({ options, handleChange, value }) => {
+const Select = ({ handleChange, label, options, value, ...rest }) => {
     const classes = useStyles()
     return (
         <FormControl variant="outlined" classes={classes}>
-            <InputLabel id="demo-simple-select-outlined-label">Workout Category</InputLabel>
+            <InputLabel id="demo-simple-select-outlined-label">{label}</InputLabel>
             <MUISelect
                 labelId="demo-simple-select-outlined-label"
                 id="demo-simple-select-outlined"
                 value={value}
                 onChange={handleChange}
-                label="Workout Category">
+                label={label}
+                {...rest}>
                 <MenuItem value="">
                     <em>None</em>
                 </MenuItem>
@@ -38,10 +38,11 @@ const Select = ({ options, handleChange, value }) => {
 }
 
 Select.propTypes = {
-    classes: T.any,
-    options: T.shape({ id: T.number.isRequired, title: T.string.isRequired }),
     handleChange: T.func.isRequired,
-    value: T.number.isRequired
+    label: T.string.isRequired,
+    options: T.arrayOf(T.shape({ id: T.number.isRequired, title: T.string.isRequired })),
+    // Pass '' for nothing selected
+    value: T.oneOfType([T.number.isRequired, T.string])
 }
 
 export default Select
