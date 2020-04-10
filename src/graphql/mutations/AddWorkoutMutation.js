@@ -1,4 +1,5 @@
 import { gql } from 'apollo-boost'
+import WorkoutFragment from '../fragments/WorkoutFragment'
 
 const AddWorkoutMutation = gql`
     mutation AddWorkout(
@@ -17,18 +18,10 @@ const AddWorkoutMutation = gql`
             categories: $categories
             duration: $duration
         ) {
-            id
-            title
-            requiredEquipment
-            startTime
-            link
-            categories {
-                id
-                title
-            }
-            duration
+            ...WorkoutFragment
         }
     }
+    ${WorkoutFragment}
 `
 
 export default AddWorkoutMutation

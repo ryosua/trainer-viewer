@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/react-hooks'
 
-import ViewWorkoutsCategories from '../../graphql/ViewWorkoutCategories'
+import ViewWorkoutsCategories from '../../graphql/queries/ViewWorkoutCategories'
 
 const useWorkoutCategories = () => useQuery(ViewWorkoutsCategories)
 

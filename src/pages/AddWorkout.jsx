@@ -15,8 +15,8 @@ import { useHistory } from 'react-router-dom'
 
 import Select from '../designSystem/Select'
 import DateTimePicker from '../components/DateTimePicker'
-import AddWorkoutMutation from '../graphql/AddWorkoutMutation'
-import ViewWorkoutsQuery from '../graphql/ViewWorkoutsQuery'
+import AddWorkoutMutation from '../graphql/mutations/AddWorkoutMutation'
+import ViewWorkoutsQuery from '../graphql/queries/ViewWorkoutsQuery'
 import useWorkoutCategories from '../hooks/api/useWorkoutCategories'
 import { workouts as workoutsRoute } from '../constants/routes'
 
