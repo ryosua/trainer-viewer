@@ -12,9 +12,7 @@ const WorkoutFragment = gql`
         requiredEquipment
         startTime
         title
-        trainer {
-            id
-        }
+        trainerId
     }
 `
 export default WorkoutFragment
