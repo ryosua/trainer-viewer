@@ -8,9 +8,6 @@
         "@material-ui/core": "4.9.4",
         "@material-ui/icons": "4.9.1",
         "@material-ui/pickers": "3.2.10",
-        "@testing-library/jest-dom": "4.2.4",
-        "@testing-library/react": "9.3.2",
-        "@testing-library/user-event": "^7.1.2",
         "apollo-boost": "0.4.7",
         "auth0-spa-js": "1.6.5",
         "dayjs": "1.8.22",
@@ -21,6 +18,11 @@
         "react-router": "5.1.2",
         "react-router-dom": "5.1.2",
         "react-scripts": "3.3.1"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "5.5.0",
+        "@testing-library/react": "10.0.2",
+        "@testing-library/user-event": "10.0.1"
     },
     "scripts": {
         "start": "react-scripts start",
