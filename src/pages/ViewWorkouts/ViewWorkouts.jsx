@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
+import { useMutation } from '@apollo/react-hooks'
 
 import ReportDialog from './ReportDialog'
 import WorkoutCard from './WorkoutCard'
 import Select from '../../designSystem/Select'
 import useWorkouts from '../../hooks/api/useWorkouts'
 import useWorkoutCategories from '../../hooks/api/useWorkoutCategories'
+import ReportWorkoutMutation from '../../graphql/mutations/ReportWorkoutMutation'
 
 const ViewWorkouts = () => {
     const [reportedWorkout, setReportedWorkout] = useState()
@@ -19,6 +21,8 @@ const ViewWorkouts = () => {
         data: workoutCategoriesData
     } = useWorkoutCategories()
     const [selectedWorkoutCategory, setSelectedWorkoutCategory] = useState()
+
+    const [addWorkoutMutation] = useMutation(ReportWorkoutMutation)
 
     if (loadingWorkouts || loadingWorkoutCategories || workoutsError || workoutCategoriesError) {
         return null
@@ -33,8 +37,7 @@ const ViewWorkouts = () => {
         setReportedWorkout(workout)
     }
     const handleReportWorkout = () => {
-        console.log('reason: ', reason)
-        console.log('reportedWorkout: ', reportedWorkout)
+        addWorkoutMutation({ variables: { workoutId: reportedWorkout.id, reason } })
         handleCloseDialog()
     }
     const handleReasonChange = (e) => setReason(e.target.value)
