@@ -10,11 +10,10 @@ import Typography from '@material-ui/core/Typography'
 import formatDate from '../../utils/formatDate'
 import openLink from '../../utils/openLink'
 
-const WorkoutCard = ({ workout }) => {
-    const { id, title, requiredEquipment, startTime, link, categories, duration } = workout
-    console.log('workout: ', JSON.stringify(workout))
+const WorkoutCard = ({ onReportWorkout, workout }) => {
+    const { title, requiredEquipment, startTime, link, categories, duration } = workout
     return (
-        <Card key={id} variant="outlined">
+        <Card variant="outlined">
             <CardContent>
                 <Typography variant="h3">{title}</Typography>
                 <Typography>{`Start time: ${formatDate(startTime)}`}</Typography>
@@ -30,7 +29,7 @@ const WorkoutCard = ({ workout }) => {
                 <Button onClick={() => openLink(link)} variant="outlined">
                     Open Link
                 </Button>
-                <Button onClick={() => {}} variant="outlined">
+                <Button onClick={() => onReportWorkout(workout)} variant="outlined">
                     <ReportIcon color="secondary" />
                 </Button>
             </CardActions>
@@ -39,6 +38,7 @@ const WorkoutCard = ({ workout }) => {
 }
 
 WorkoutCard.propTypes = {
+    onReportWorkout: T.func.isRequired,
     workout: T.object.isRequired
 }
 export default WorkoutCard
