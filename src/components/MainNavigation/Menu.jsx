@@ -6,10 +6,10 @@ import MenuItem from '@material-ui/core/MenuItem'
 import MenuIcon from '@material-ui/icons/Menu'
 import { useHistory } from 'react-router-dom'
 
-import { addWorkout, workouts } from '../constants/routes'
-import useAuth from '../hooks/useAuth'
+import { addWorkout, workouts } from '../../constants/routes'
+import useAuth from '../../hooks/useAuth'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2)
     }
@@ -21,9 +21,9 @@ const NavMenu = () => {
     const [anchorEl, setAnchorEl] = useState(null)
     const { isAuthenticated } = useAuth()
 
-    const handleClick = event => setAnchorEl(event.currentTarget)
+    const handleClick = (event) => setAnchorEl(event.currentTarget)
     const handleClose = () => setAnchorEl(null)
-    const navigateTo = path => {
+    const navigateTo = (path) => {
         history.push(path)
         handleClose()
     }
