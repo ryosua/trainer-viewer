@@ -7,8 +7,8 @@ import CardContent from '@material-ui/core/CardContent'
 import ReportIcon from '@material-ui/icons/Report'
 import Typography from '@material-ui/core/Typography'
 
+import ButtonLink from '../../components/ButtonLink'
 import formatDate from '../../utils/formatDate'
-import openLink from '../../utils/openLink'
 
 const WorkoutCard = ({ onReportWorkout, workout }) => {
     const { title, requiredEquipment, startTime, link, categories, duration } = workout
@@ -26,9 +26,7 @@ const WorkoutCard = ({ onReportWorkout, workout }) => {
                 <Typography>{`Duration: ${duration} minutes`}</Typography>
             </CardContent>
             <CardActions>
-                <Button onClick={() => openLink(link)} variant="outlined">
-                    Open Link
-                </Button>
+                <ButtonLink to={link} text="Open Link" />
                 <Button onClick={() => onReportWorkout(workout)} variant="outlined">
                     <ReportIcon color="secondary" />
                 </Button>
