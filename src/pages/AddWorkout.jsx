@@ -13,7 +13,7 @@ import MUISelect from '@material-ui/core/Select'
 import cloneDeep from 'lodash/cloneDeep'
 import { useHistory } from 'react-router-dom'
 
-import Select from '../designSystem/Select'
+import Select from '../components/Select'
 import DateTimePicker from '../components/DateTimePicker'
 import AddWorkoutMutation from '../graphql/mutations/AddWorkoutMutation'
 import ViewWorkoutsQuery from '../graphql/queries/ViewWorkoutsQuery'

@@ -9,7 +9,7 @@ import { MuiThemeProvider, CssBaseline } from '@material-ui/core'
 import useSetToken from './hooks/useSetToken'
 import createGraphQLClient from './utils/createGraphQLClient'
 import MainNavigation from './components/MainNavigation'
-import theme from './designSystem/customTheme'
+import theme from './customTheme'
 
 import './App.css'
 

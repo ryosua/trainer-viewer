@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/react-hooks'
 
 import ReportDialog from './ReportDialog'
 import WorkoutCard from './WorkoutCard'
-import Select from '../../designSystem/Select'
+import Select from '../../components/Select'
 import useWorkouts from '../../hooks/api/useWorkouts'
 import useWorkoutCategories from '../../hooks/api/useWorkoutCategories'
 import ReportWorkoutMutation from '../../graphql/mutations/ReportWorkoutMutation'
