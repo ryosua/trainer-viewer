@@ -4,9 +4,25 @@ import { Route, Redirect } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import { home } from '../constants/routes'
 
-const AuthenticatedRoute = props => {
+const AuthenticatedRoute = ({ children, ...rest }) => {
     const { isAuthenticated } = useAuth()
-    return isAuthenticated ? <Route {...props} /> : <Redirect to={home} />
+    return (
+        <Route
+            {...rest}
+            render={({ location }) =>
+                isAuthenticated ? (
+                    children
+                ) : (
+                    <Redirect
+                        to={{
+                            pathname: home,
+                            state: { from: location }
+                        }}
+                    />
+                )
+            }
+        />
+    )
 }
 
 export default AuthenticatedRoute

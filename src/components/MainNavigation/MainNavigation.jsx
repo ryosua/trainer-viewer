@@ -4,12 +4,13 @@ import { Route } from 'react-router-dom'
 import Box from '@material-ui/core/Box'
 
 import useMe from '../../hooks/api/useMe'
-import AuthenticatedRoute from '../AuthenticatedRoute'
+import UserAgreementRestrictedRoute from '../UserAgreementRestrictedRoute'
 import NavBar from './NavBar'
 import AddWorkout from '../../pages/AddWorkout'
 import Landing from '../../pages/Landing'
+import UserAgreement from '../../pages/UserAgreement'
 import ViewWorkouts from '../../pages/ViewWorkouts'
-import { addWorkout, home, workouts } from '../../constants/routes'
+import { addWorkout, home, userAgreement, workouts } from '../../constants/routes'
 
 const Nav = () => (
     <>
@@ -17,9 +18,18 @@ const Nav = () => (
             <NavBar />
         </header>
         <Box display="flex" flexDirection="column" mt={2}>
-            <AuthenticatedRoute exact path={addWorkout} component={AddWorkout} />
-            <Route exact path={home} component={Landing} />
-            <Route exact path={workouts} component={ViewWorkouts} />
+            <Route exact path={userAgreement}>
+                <UserAgreement />
+            </Route>
+            <Route exact path={home}>
+                <Landing />
+            </Route>
+            <UserAgreementRestrictedRoute exact path={addWorkout}>
+                <AddWorkout />
+            </UserAgreementRestrictedRoute>
+            <UserAgreementRestrictedRoute exact path={workouts}>
+                <ViewWorkouts />
+            </UserAgreementRestrictedRoute>
         </Box>
     </>
 )
