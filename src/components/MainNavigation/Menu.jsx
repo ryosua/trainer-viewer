@@ -41,7 +41,7 @@ const NavMenu = () => {
                 <MenuIcon />
             </IconButton>
             <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-                <MenuItem onClick={() => navigateTo(workouts)}>Workouts</MenuItem>
+                {isAuthenticated && <MenuItem onClick={() => navigateTo(workouts)}>Workouts</MenuItem>}
                 {isAuthenticated && <MenuItem onClick={() => navigateTo(addWorkout)}>Create a Workout</MenuItem>}
             </Menu>
         </div>
