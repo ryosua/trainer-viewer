@@ -2,12 +2,13 @@ import { gql } from 'apollo-boost'
 
 import UserFragment from '../fragments/UserFragment'
 
-const MeQuery = gql`
-    query Me {
-        me {
+const SignUserAgreementMutation = gql`
+    mutation SignUserAgreement {
+        signUserAgreement {
             ...UserFragment
         }
     }
     ${UserFragment}
 `
-export default MeQuery
+
+export default SignUserAgreementMutation

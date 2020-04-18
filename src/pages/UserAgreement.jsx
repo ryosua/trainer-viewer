@@ -1,14 +1,23 @@
 import React, { useState } from 'react'
+import { useMutation } from '@apollo/react-hooks'
+import { useHistory } from 'react-router-dom'
 import Box from '@material-ui/core/Box'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Typography from '@material-ui/core/Typography'
 
+import { workouts } from '../constants/routes'
 import Button from '../components/Button'
+import SignUserAgreementMutation from '../graphql/mutations/SignUserAgreementMutation'
 
 const UserAgreement = () => {
     const [read, setRead] = useState(false)
-    const handleSignUserAgreement = () => {}
+    const [signUserAgreementMutation] = useMutation(SignUserAgreementMutation)
+    const history = useHistory()
+    const handleSignUserAgreement = async () => {
+        await signUserAgreementMutation()
+        history.push(workouts)
+    }
     return (
         <Box display="flex" flexDirection="column" flex={1} justifyContent="flex-start" alignItems="flex-start" p={1}>
             <Typography variant="h3">USER AGREEMENT</Typography>
