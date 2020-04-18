@@ -1,12 +1,12 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 
-import useAuth from '../hooks/useAuth'
+import useToken from '../hooks/useToken'
 import useMe from '../hooks/api/useMe'
 import { home, userAgreement } from '../constants/routes'
 
 const UserAgreementRestrictedRoute = ({ children, ...rest }) => {
-    const { isAuthenticated } = useAuth()
+    const { isAuthenticated } = useToken()
     const { data, loading, error } = useMe()
     return (
         <Route

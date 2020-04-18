@@ -6,17 +6,16 @@ import DayjsUtils from '@date-io/dayjs'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { MuiThemeProvider, CssBaseline } from '@material-ui/core'
 
-import useSetToken from './hooks/useSetToken'
+import useToken from './hooks/useToken'
 import createGraphQLClient from './utils/createGraphQLClient'
 import MainNavigation from './components/MainNavigation'
 import theme from './customTheme'
 
 import './App.css'
 
-const client = createGraphQLClient()
-
 const App = () => {
-    useSetToken()
+    const { token } = useToken()
+    const client = createGraphQLClient(token)
     return (
         <div className="App">
             <ApolloProvider client={client}>

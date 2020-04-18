@@ -7,7 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { useHistory } from 'react-router-dom'
 
 import { addWorkout, workouts } from '../../constants/routes'
-import useAuth from '../../hooks/useAuth'
+import useToken from '../../hooks/useToken'
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -19,7 +19,7 @@ const NavMenu = () => {
     const classes = useStyles()
     const history = useHistory()
     const [anchorEl, setAnchorEl] = useState(null)
-    const { isAuthenticated } = useAuth()
+    const { isAuthenticated } = useToken()
 
     const handleClick = (event) => setAnchorEl(event.currentTarget)
     const handleClose = () => setAnchorEl(null)

@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom'
 
 import Menu from './Menu'
 import useAuth from '../../hooks/useAuth'
+import useToken from '../../hooks/useToken'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
     const classes = useStyles()
-    const { isAuthenticated, loginWithRedirect, logout } = useAuth()
+    const { isAuthenticated } = useToken()
+    const { loginWithRedirect, logout } = useAuth()
     const history = useHistory()
 
     return (

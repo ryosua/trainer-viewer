@@ -1,10 +1,10 @@
 import React from 'react'
 
-import useAuth from '../../hooks/useAuth'
+import useToken from '../../hooks/useToken'
 import MainNavigation from './MainNavigation'
 
 const MainNavigationContainer = () => {
-    const { isAuthenticated } = useAuth()
+    const { isAuthenticated } = useToken()
     return <MainNavigation isAuthenticated={isAuthenticated} />
 }
 

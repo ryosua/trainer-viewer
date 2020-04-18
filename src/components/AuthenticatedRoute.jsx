@@ -1,11 +1,11 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 
-import useAuth from '../hooks/useAuth'
+import useToken from '../hooks/useToken'
 import { home } from '../constants/routes'
 
 const AuthenticatedRoute = ({ children, ...rest }) => {
-    const { isAuthenticated } = useAuth()
+    const { isAuthenticated } = useToken()
     return (
         <Route
             {...rest}

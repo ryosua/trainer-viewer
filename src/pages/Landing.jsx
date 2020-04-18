@@ -4,10 +4,12 @@ import Typography from '@material-ui/core/Typography'
 
 import Button from '../components/Button'
 import useAuth from '../hooks/useAuth'
+import useToken from '../hooks/useToken'
 import { appName } from '../constants/app'
 
 const Landing = () => {
-    const { isAuthenticated, loginWithRedirect } = useAuth()
+    const { isAuthenticated } = useToken()
+    const { loginWithRedirect } = useAuth()
     return (
         <Box display="flex" flex={1} justifyContent="center">
             <Box display="flex" flexDirection="column" alignItems="center">
