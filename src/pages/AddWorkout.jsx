@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
@@ -13,6 +12,7 @@ import MUISelect from '@material-ui/core/Select'
 import cloneDeep from 'lodash/cloneDeep'
 import { useHistory } from 'react-router-dom'
 
+import Button from '../components/Button'
 import Select from '../components/Select'
 import DateTimePicker from '../components/DateTimePicker'
 import AddWorkoutMutation from '../graphql/mutations/AddWorkoutMutation'
@@ -22,9 +22,6 @@ import { workouts as workoutsRoute } from '../constants/routes'
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
-        width: 200
-    },
-    button: {
         width: 200
     }
 }))
@@ -79,7 +76,6 @@ const durationOptions = [
 ]
 
 const AddWorkout = () => {
-    const classes = useStyles()
     const history = useHistory()
 
     const [link, handleLinkChange] = useState('')
@@ -184,11 +180,7 @@ const AddWorkout = () => {
                             handleWorkoutCategoriesChange={handleWorkoutCategoriesChange}
                         />
                     </Box>
-                    <Button
-                        classes={{ root: classes.button }}
-                        variant="outlined"
-                        onClick={handleTextFieldChange(handleAddWorkout)}
-                        disabled={createWorkOutDisabled}>
+                    <Button onClick={handleTextFieldChange(handleAddWorkout)} disabled={createWorkOutDisabled}>
                         Create Workout
                     </Button>
                 </Box>
