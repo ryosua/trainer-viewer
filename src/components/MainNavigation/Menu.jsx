@@ -28,6 +28,11 @@ const NavMenu = () => {
         handleClose()
     }
 
+    // Until we have unauthenticated routes, don't render the menu until the user is logged in.
+    if (!isAuthenticated) {
+        return null
+    }
+
     return (
         <div>
             <IconButton
