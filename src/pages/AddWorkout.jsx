@@ -19,6 +19,7 @@ import AddWorkoutMutation from '../graphql/mutations/AddWorkoutMutation'
 import ViewWorkoutsQuery from '../graphql/queries/ViewWorkoutsQuery'
 import useWorkoutCategories from '../hooks/api/useWorkoutCategories'
 import { workouts as workoutsRoute } from '../constants/routes'
+import analytics from '../utils/analytics'
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -114,6 +115,7 @@ const AddWorkout = () => {
         handleLinkChange('')
         handleRequiredEquipmentChange('')
         history.push(workoutsRoute)
+        analytics.track('add workout')
     }
     const handleTextFieldChange = (handler) => (e) => handler(e.target.value)
     const handleWorkoutCategoriesChange = (e) => {

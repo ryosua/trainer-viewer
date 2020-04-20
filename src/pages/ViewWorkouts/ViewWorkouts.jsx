@@ -9,6 +9,7 @@ import Select from '../../components/Select'
 import useWorkouts from '../../hooks/api/useWorkouts'
 import useWorkoutCategories from '../../hooks/api/useWorkoutCategories'
 import ReportWorkoutMutation from '../../graphql/mutations/ReportWorkoutMutation'
+import analytics from '../../utils/analytics'
 
 const ViewWorkouts = () => {
     const [reportedWorkout, setReportedWorkout] = useState()
@@ -22,7 +23,7 @@ const ViewWorkouts = () => {
     } = useWorkoutCategories()
     const [selectedWorkoutCategory, setSelectedWorkoutCategory] = useState()
 
-    const [addWorkoutMutation] = useMutation(ReportWorkoutMutation)
+    const [reportWorkoutMutation] = useMutation(ReportWorkoutMutation)
 
     if (loadingWorkouts || loadingWorkoutCategories || workoutsError || workoutCategoriesError) {
         return null
@@ -37,8 +38,9 @@ const ViewWorkouts = () => {
         setReportedWorkout(workout)
     }
     const handleReportWorkout = () => {
-        addWorkoutMutation({ variables: { workoutId: reportedWorkout.id, reason } })
+        reportWorkoutMutation({ variables: { workoutId: reportedWorkout.id, reason } })
         handleCloseDialog()
+        analytics.track('report workout')
     }
     const handleReasonChange = (e) => setReason(e.target.value)
 

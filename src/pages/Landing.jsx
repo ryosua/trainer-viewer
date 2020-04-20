@@ -6,6 +6,7 @@ import Button from '../components/Button'
 import useAuth from '../hooks/useAuth'
 import useToken from '../hooks/useToken'
 import { appName } from '../constants/app'
+import analytics from '../utils/analytics'
 
 const Landing = () => {
     const { isAuthenticated } = useToken()
@@ -15,7 +16,15 @@ const Landing = () => {
             <Box display="flex" flexDirection="column" alignItems="center">
                 <Typography variant="h3">{appName}</Typography>
                 <Typography>Workout at home</Typography>
-                {!isAuthenticated && <Button onClick={() => loginWithRedirect({})}>Signup</Button>}
+                {!isAuthenticated && (
+                    <Button
+                        onClick={() => {
+                            loginWithRedirect({})
+                            analytics.track('signup')
+                        }}>
+                        Signup
+                    </Button>
+                )}
             </Box>
         </Box>
     )

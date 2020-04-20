@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import { workouts } from '../constants/routes'
 import Button from '../components/Button'
 import SignUserAgreementMutation from '../graphql/mutations/SignUserAgreementMutation'
+import analytics from '../utils/analytics'
 
 const UserAgreement = () => {
     const [read, setRead] = useState(false)
@@ -17,6 +18,7 @@ const UserAgreement = () => {
     const handleSignUserAgreement = async () => {
         await signUserAgreementMutation()
         history.push(workouts)
+        analytics.track('sign user agreement')
     }
     return (
         <Box display="flex" flexDirection="column" flex={1} justifyContent="flex-start" alignItems="flex-start" p={1}>

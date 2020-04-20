@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom'
 import Menu from './Menu'
 import useAuth from '../../hooks/useAuth'
 import useToken from '../../hooks/useToken'
+import analytics from '../../utils/analytics'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,12 +39,22 @@ const NavBar = () => {
                         Home
                     </Typography>
                     {!isAuthenticated && (
-                        <Button color="inherit" onClick={() => loginWithRedirect({})}>
+                        <Button
+                            color="inherit"
+                            onClick={() => {
+                                loginWithRedirect({})
+                                analytics.track('login')
+                            }}>
                             Login
                         </Button>
                     )}
                     {isAuthenticated && (
-                        <Button color="inherit" onClick={() => logout()}>
+                        <Button
+                            color="inherit"
+                            onClick={() => {
+                                logout()
+                                analytics.track('logout')
+                            }}>
                             Logout
                         </Button>
                     )}

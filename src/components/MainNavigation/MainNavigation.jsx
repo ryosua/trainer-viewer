@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import T from 'prop-types'
 import { Route } from 'react-router-dom'
 import Box from '@material-ui/core/Box'
@@ -11,6 +11,7 @@ import Landing from '../../pages/Landing'
 import UserAgreement from '../../pages/UserAgreement'
 import ViewWorkouts from '../../pages/ViewWorkouts'
 import { addWorkout, home, userAgreement, workouts } from '../../constants/routes'
+import analytics from '../../utils/analytics'
 
 const Nav = () => (
     <>
@@ -35,7 +36,16 @@ const Nav = () => (
 )
 
 const AuthenticatedNav = () => {
-    useMe()
+    const { data, loading, error } = useMe()
+    useEffect(() => {
+        if (!loading && !error) {
+            const {
+                me: { id }
+            } = data
+            analytics.identify(id)
+            analytics.setUserProps({ id })
+        }
+    }, [data, loading, error])
     return <Nav />
 }
 

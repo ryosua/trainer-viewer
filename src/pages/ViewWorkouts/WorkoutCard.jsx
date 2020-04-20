@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography'
 
 import ButtonLink from '../../components/ButtonLink'
 import formatDate from '../../utils/formatDate'
+import analytics from '../../utils/analytics'
 
 const WorkoutCard = ({ onReportWorkout, workout }) => {
     const { title, requiredEquipment, startTime, link, categories, duration } = workout
@@ -26,7 +27,7 @@ const WorkoutCard = ({ onReportWorkout, workout }) => {
                 <Typography>{`Duration: ${duration} minutes`}</Typography>
             </CardContent>
             <CardActions>
-                <ButtonLink to={link} text="Open Link" />
+                <ButtonLink to={link} text="Open Link" onClick={() => analytics.track('open link', { link })} />
                 <Button onClick={() => onReportWorkout(workout)} variant="outlined">
                     <ReportIcon color="secondary" />
                 </Button>
