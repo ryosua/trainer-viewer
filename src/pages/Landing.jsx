@@ -15,7 +15,18 @@ const Landing = () => {
         <Box display="flex" flex={1} justifyContent="center">
             <Box display="flex" flexDirection="column" alignItems="center">
                 <Typography variant="h3">{appName}</Typography>
-                <Typography>Workout at home</Typography>
+                <Box m={5}>
+                    <iframe
+                        data-test="weather-story-card-video"
+                        title="video"
+                        width="560px"
+                        height="315px"
+                        src="https://www.youtube.com/embed/pNx7jZrix6Y"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    />
+                </Box>
                 {!isAuthenticated && (
                     <Button
                         onClick={() => {
