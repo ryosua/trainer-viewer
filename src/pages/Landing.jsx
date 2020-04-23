@@ -1,12 +1,12 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
 
 import Button from '../components/Button'
 import useAuth from '../hooks/useAuth'
 import useToken from '../hooks/useToken'
-import { appName } from '../constants/app'
 import analytics from '../utils/analytics'
+
+import { ReactComponent as Logo } from '../assets/logo.svg'
 
 const Landing = () => {
     const { isAuthenticated } = useToken()
@@ -14,7 +14,7 @@ const Landing = () => {
     return (
         <Box display="flex" flex={1} justifyContent="center">
             <Box display="flex" flexDirection="column" alignItems="center">
-                <Typography variant="h3">{appName}</Typography>
+                <Logo />
                 <Box m={5}>
                     <iframe
                         data-test="weather-story-card-video"
