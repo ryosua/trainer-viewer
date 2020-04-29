@@ -17,11 +17,10 @@ const Landing = () => {
                 <Logo />
                 <Box m={5}>
                     <iframe
-                        data-test="weather-story-card-video"
                         title="video"
                         width="560px"
                         height="315px"
-                        src="https://www.youtube.com/embed/pNx7jZrix6Y"
+                        src="https://www.youtube.com/embed/LiRHH3-yk8g"
                         frameBorder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
