@@ -40,7 +40,7 @@ const ViewWorkouts = () => {
     const handleReportWorkout = () => {
         reportWorkoutMutation({ variables: { workoutId: reportedWorkout.id, reason } })
         handleCloseDialog()
-        analytics.track('report workout')
+        analytics.track('report workout', { workoutId: reportedWorkout.id, reason })
     }
     const handleReasonChange = (e) => setReason(e.target.value)
 
