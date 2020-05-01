@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 
 const WorkoutFragment = gql`
     fragment WorkoutFragment on Workout {

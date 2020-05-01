@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 
 const ReportWorkoutMutation = gql`
     mutation ReportWorkout($workoutId: Int!, $reason: String!) {
