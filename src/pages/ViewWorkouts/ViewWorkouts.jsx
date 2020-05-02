@@ -61,6 +61,7 @@ const ViewWorkouts = () => {
                     value={selectedWorkoutCategory || ''}
                 />
             </Box>
+            {workouts.length === 0 && <Typography>There are no workouts yet. Come back soon!</Typography>}
             {filteredWorkouts.map((workout) => (
                 <WorkoutCard
                     key={workout.id}
