@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import cloneDeep from 'lodash/cloneDeep'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import { useMutation } from '@apollo/react-hooks'
@@ -11,6 +12,7 @@ import useWorkouts from '../../hooks/api/useWorkouts'
 import useWorkoutCategories from '../../hooks/api/useWorkoutCategories'
 import ReportWorkoutMutation from '../../graphql/mutations/ReportWorkoutMutation'
 import DeleteWorkoutMutation from '../../graphql/mutations/DeleteWorkoutMutation'
+import ViewWorkoutsQuery from '../../graphql/queries/ViewWorkoutsQuery'
 import analytics from '../../utils/analytics'
 
 const ViewWorkouts = () => {
@@ -27,7 +29,16 @@ const ViewWorkouts = () => {
     } = useWorkoutCategories()
 
     const [reportWorkoutMutation] = useMutation(ReportWorkoutMutation)
-    const [deleteWorkoutMutation] = useMutation(DeleteWorkoutMutation)
+    const [deleteWorkoutMutation] = useMutation(DeleteWorkoutMutation, {
+        update(cache, { data: { addWorkout } }) {
+            const { workouts } = cloneDeep(cache.readQuery({ query: ViewWorkoutsQuery }))
+
+            cache.writeQuery({
+                query: ViewWorkoutsQuery,
+                data: { workouts: workouts.filter((workout) => workout.id !== workoutToDelete.id) }
+            })
+        }
+    })
 
     if (loadingWorkouts || loadingWorkoutCategories || workoutsError || workoutCategoriesError) {
         return null
