@@ -1,5 +1,4 @@
 import React from 'react'
-import T from 'prop-types'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -14,7 +13,13 @@ import ButtonLink from '../../components/ButtonLink'
 import formatDate from '../../utils/formatDate'
 import analytics from '../../utils/analytics'
 
-const WorkoutCard = ({ onDeleteWorkout, onReportWorkout, workout }) => {
+type WorkoutCardProps = {
+    onDeleteWorkout: (workout: any) => void
+    onReportWorkout: (workout: any) => void
+    workout: any
+}
+
+const WorkoutCard = ({ onDeleteWorkout, onReportWorkout, workout }: WorkoutCardProps) => {
     const { data, loading, error } = useMe()
 
     if (loading) {
@@ -35,7 +40,7 @@ const WorkoutCard = ({ onDeleteWorkout, onReportWorkout, workout }) => {
                 <Typography>{`Start time: ${formatDate(startTime)}`}</Typography>
                 <Typography>{`Required equipment: ${requiredEquipment || 'No equipment needed'}`}</Typography>
                 <Typography>{`Categories: ${categories.reduce(
-                    (accumulator, category, index) =>
+                    (accumulator: string, category: any, index: number) =>
                         accumulator + category.title + (index === categories.length - 1 ? '' : ', '),
                     ''
                 )}`}</Typography>
@@ -58,9 +63,4 @@ const WorkoutCard = ({ onDeleteWorkout, onReportWorkout, workout }) => {
     )
 }
 
-WorkoutCard.propTypes = {
-    onDeleteWorkout: T.func.isRequired,
-    onReportWorkout: T.func.isRequired,
-    workout: T.object.isRequired
-}
 export default WorkoutCard
