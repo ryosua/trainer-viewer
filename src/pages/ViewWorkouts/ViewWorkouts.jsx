@@ -4,15 +4,19 @@ import Box from '@material-ui/core/Box'
 import { useMutation } from '@apollo/react-hooks'
 
 import ReportDialog from './ReportDialog'
+import DeleteDialog from './DeleteDialog'
 import WorkoutCard from './WorkoutCard'
 import Select from '../../components/Select'
 import useWorkouts from '../../hooks/api/useWorkouts'
 import useWorkoutCategories from '../../hooks/api/useWorkoutCategories'
 import ReportWorkoutMutation from '../../graphql/mutations/ReportWorkoutMutation'
+import DeleteWorkoutMutation from '../../graphql/mutations/DeleteWorkoutMutation'
 import analytics from '../../utils/analytics'
 
 const ViewWorkouts = () => {
+    const [selectedWorkoutCategory, setSelectedWorkoutCategory] = useState()
     const [reportedWorkout, setReportedWorkout] = useState()
+    const [workoutToDelete, setWorkoutToDelete] = useState()
     const [reason, setReason] = useState('')
 
     const { loading: loadingWorkouts, error: workoutsError, data: workoutsData } = useWorkouts()
@@ -21,9 +25,9 @@ const ViewWorkouts = () => {
         error: workoutCategoriesError,
         data: workoutCategoriesData
     } = useWorkoutCategories()
-    const [selectedWorkoutCategory, setSelectedWorkoutCategory] = useState()
 
     const [reportWorkoutMutation] = useMutation(ReportWorkoutMutation)
+    const [deleteWorkoutMutation] = useMutation(DeleteWorkoutMutation)
 
     if (loadingWorkouts || loadingWorkoutCategories || workoutsError || workoutCategoriesError) {
         return null
@@ -33,15 +37,27 @@ const ViewWorkouts = () => {
     const { workoutCategories } = workoutCategoriesData
 
     const handleChange = (e) => setSelectedWorkoutCategory(e.target.value)
-    const handleCloseDialog = () => setReportedWorkout()
-    const handleOpenDialog = (workout) => {
-        setReportedWorkout(workout)
-    }
+
+    const handleCloseReportDialog = () => setReportedWorkout()
+
+    const handleCloseDeleteDialog = () => setWorkoutToDelete()
+
+    const handleOpenReportDialog = (workout) => setReportedWorkout(workout)
+
+    const handleOpenDeleteDialog = (workout) => setWorkoutToDelete(workout)
+
     const handleReportWorkout = () => {
         reportWorkoutMutation({ variables: { workoutId: reportedWorkout.id, reason } })
-        handleCloseDialog()
+        handleCloseReportDialog()
         analytics.track('report workout', { workoutId: reportedWorkout.id, reason })
     }
+
+    const handleDeleteWorkout = () => {
+        deleteWorkoutMutation({ variables: { workoutId: workoutToDelete.id } })
+        handleCloseDeleteDialog()
+        analytics.track('delete workout', { workoutId: workoutToDelete.id })
+    }
+
     const handleReasonChange = (e) => setReason(e.target.value)
 
     const filteredWorkouts = selectedWorkoutCategory
@@ -65,18 +81,18 @@ const ViewWorkouts = () => {
             {filteredWorkouts.map((workout) => (
                 <WorkoutCard
                     key={workout.id}
-                    onReportWorkout={handleOpenDialog}
+                    onDeleteWorkout={handleOpenDeleteDialog}
+                    onReportWorkout={handleOpenReportDialog}
                     workout={workout}
-                    onReasonChange={handleOpenDialog}
                 />
             ))}
             <ReportDialog
                 buttonDisabled={Boolean(!reason)}
-                onClose={handleCloseDialog}
-                open={Boolean(reportedWorkout)}
-                onReportWorkout={handleReportWorkout}
                 onReasonChange={handleReasonChange}
+                onReportWorkout={handleReportWorkout}
+                open={Boolean(reportedWorkout)}
             />
+            <DeleteDialog onDeleteWorkout={handleDeleteWorkout} open={Boolean(workoutToDelete)} />
         </>
     )
 }
