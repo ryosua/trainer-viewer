@@ -7,6 +7,7 @@ import ReportIcon from '@material-ui/icons/Report'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Typography from '@material-ui/core/Typography'
 
+import { Workout, WorkoutCategory } from '../../shared'
 import isMyWorkout from '../../utils/isMyWorkout.js'
 import useMe from '../../hooks/api/useMe'
 import ButtonLink from '../../components/ButtonLink'
@@ -14,9 +15,9 @@ import formatDate from '../../utils/formatDate'
 import analytics from '../../utils/analytics'
 
 type WorkoutCardProps = {
-    onDeleteWorkout: (workout: any) => void
-    onReportWorkout: (workout: any) => void
-    workout: any
+    onDeleteWorkout: (workout: Workout) => void
+    onReportWorkout: (workout: Workout) => void
+    workout: Workout
 }
 
 const WorkoutCard = ({ onDeleteWorkout, onReportWorkout, workout }: WorkoutCardProps) => {
@@ -40,7 +41,7 @@ const WorkoutCard = ({ onDeleteWorkout, onReportWorkout, workout }: WorkoutCardP
                 <Typography>{`Start time: ${formatDate(startTime)}`}</Typography>
                 <Typography>{`Required equipment: ${requiredEquipment || 'No equipment needed'}`}</Typography>
                 <Typography>{`Categories: ${categories.reduce(
-                    (accumulator: string, category: any, index: number) =>
+                    (accumulator: string, category: WorkoutCategory, index: number) =>
                         accumulator + category.title + (index === categories.length - 1 ? '' : ', '),
                     ''
                 )}`}</Typography>
