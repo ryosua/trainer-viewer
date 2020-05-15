@@ -21,17 +21,12 @@ type WorkoutCardProps = {
 }
 
 const WorkoutCard = ({ onDeleteWorkout, onReportWorkout, workout }: WorkoutCardProps) => {
+    // We expect to get an error if the user is unauthenticated.
     const { data, loading, error } = useMe()
 
     if (loading) {
         return null
     }
-
-    if (error) {
-        return <Typography>There was an error loading your profile.</Typography>
-    }
-
-    const { me } = data
 
     const { title, requiredEquipment, startTime, link, categories, duration } = workout
     return (
@@ -49,12 +44,13 @@ const WorkoutCard = ({ onDeleteWorkout, onReportWorkout, workout }: WorkoutCardP
             </CardContent>
             <CardActions>
                 <ButtonLink to={link} text="Open Link" onClick={() => analytics.track('open link', { link })} />
-                {!isMyWorkout(workout, me) && (
-                    <Button onClick={() => onReportWorkout(workout)} variant="outlined">
-                        <ReportIcon color="secondary" />
-                    </Button>
-                )}
-                {isMyWorkout(workout, me) && (
+                {Boolean(error) ||
+                    (!isMyWorkout(workout, data.me) && (
+                        <Button onClick={() => onReportWorkout(workout)} variant="outlined">
+                            <ReportIcon color="secondary" />
+                        </Button>
+                    ))}
+                {!Boolean(error) && isMyWorkout(workout, data.me) && (
                     <Button onClick={() => onDeleteWorkout(workout)} variant="outlined">
                         <DeleteIcon />
                     </Button>

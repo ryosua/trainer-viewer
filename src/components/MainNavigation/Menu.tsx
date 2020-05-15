@@ -21,16 +21,11 @@ const NavMenu = () => {
     const [anchorEl, setAnchorEl] = useState(null)
     const { isAuthenticated } = useToken()
 
-    const handleClick = (event) => setAnchorEl(event.currentTarget)
+    const handleClick = (event: any) => setAnchorEl(event.currentTarget)
     const handleClose = () => setAnchorEl(null)
-    const navigateTo = (path) => {
+    const navigateTo = (path: string) => {
         history.push(path)
         handleClose()
-    }
-
-    // Until we have unauthenticated routes, don't render the menu until the user is logged in.
-    if (!isAuthenticated) {
-        return null
     }
 
     return (
@@ -46,7 +41,7 @@ const NavMenu = () => {
                 <MenuIcon />
             </IconButton>
             <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-                {isAuthenticated && <MenuItem onClick={() => navigateTo(workouts)}>Workouts</MenuItem>}
+                <MenuItem onClick={() => navigateTo(workouts)}>Workouts</MenuItem>
                 {isAuthenticated && <MenuItem onClick={() => navigateTo(addWorkout)}>Create a Workout</MenuItem>}
             </Menu>
         </div>

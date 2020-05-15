@@ -28,9 +28,9 @@ const Nav = () => (
             <UserAgreementRestrictedRoute exact path={addWorkout}>
                 <AddWorkout />
             </UserAgreementRestrictedRoute>
-            <UserAgreementRestrictedRoute exact path={workouts}>
+            <Route exact path={workouts}>
                 <ViewWorkouts />
-            </UserAgreementRestrictedRoute>
+            </Route>
         </Box>
     </>
 )
