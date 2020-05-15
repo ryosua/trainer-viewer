@@ -2,15 +2,15 @@ import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
+import Box from '@material-ui/core/Box'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router-dom'
 
-import Menu from './Menu'
 import useAuth from '../../hooks/useAuth'
 import useToken from '../../hooks/useToken'
 import analytics from '../../utils/analytics'
+import { addWorkout, home, workouts } from '../../constants/routes'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,7 +20,11 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(2)
     },
     title: {
-        flexGrow: 1
+        cursor: 'pointer'
+    },
+    menuItem: {
+        marginLeft: theme.spacing(2),
+        cursor: 'pointer'
     }
 }))
 
@@ -34,30 +38,41 @@ const NavBar = () => {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <Menu />
-                    <Typography variant="h6" className={classes.title} onClick={() => history.push('/')}>
-                        Home
-                    </Typography>
-                    {!isAuthenticated && (
-                        <Button
-                            color="inherit"
-                            onClick={() => {
-                                loginWithRedirect({})
-                                analytics.track('login')
-                            }}>
-                            Login
-                        </Button>
-                    )}
-                    {isAuthenticated && (
-                        <Button
-                            color="inherit"
-                            onClick={() => {
-                                logout()
-                                analytics.track('logout')
-                            }}>
-                            Logout
-                        </Button>
-                    )}
+                    <Box display="flex" flexDirection="row" alignItems="center">
+                        <Typography variant="h6" className={classes.title} onClick={() => history.push(home)}>
+                            Home
+                        </Typography>
+                        <Typography className={classes.menuItem} onClick={() => history.push(workouts)}>
+                            Workouts
+                        </Typography>
+                        {isAuthenticated && (
+                            <Typography className={classes.menuItem} onClick={() => history.push(addWorkout)}>
+                                Create a Workout
+                            </Typography>
+                        )}
+                    </Box>
+                    <Box display="flex" flex={1} flexDirection="row" alignItems="center" justifyContent="flex-end">
+                        {!isAuthenticated && (
+                            <Typography
+                                className={classes.menuItem}
+                                onClick={() => {
+                                    loginWithRedirect({})
+                                    analytics.track('login')
+                                }}>
+                                Login
+                            </Typography>
+                        )}
+                        {isAuthenticated && (
+                            <Typography
+                                className={classes.menuItem}
+                                onClick={() => {
+                                    logout()
+                                    analytics.track('logout')
+                                }}>
+                                Logout
+                            </Typography>
+                        )}
+                    </Box>
                 </Toolbar>
             </AppBar>
         </div>
